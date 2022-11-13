@@ -1,0 +1,113 @@
+.register {
+  height: 100vh;
+  background-color: rgb(235, 176, 231);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .card {
+    width: 65%;
+    min-height: 600px;
+    background-color: #fff;
+    display: flex;
+    border-radius: 10px;
+    overflow: hidden;
+
+    .right {
+      flex: 1;
+      background: linear-gradient(rgba(96, 11, 92, 0.5), rgba(96, 11, 96, 0.5)),
+        url(https://images.pexels.com/photos/14327570/pexels-photo-14327570.jpeg?cs=srgb&dl=pexels-breno-cardoso-14327570.jpg&fm=jpg&_gl=1*m4nx2a*_ga*MTc4NjMzNjc1My4xNjY4MDA1ODY5*_ga_8JE65Q40S6*MTY2ODAwNTg3Mi4xLjEuMTY2ODAwODY5Ni4wLjAuMA..)
+          center;
+      background-size: cover;
+      padding: 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      color: white;
+      h1 {
+        font-size: 80px;
+        line-height: 100px;
+        margin: 0;
+      }
+      p {
+      }
+      span {
+        font-size: 14px;
+      }
+      button {
+        width: 50%;
+        padding: 10px;
+        border: none;
+        background-color: white;
+        color: rgb(159, 68, 153);
+        font-weight: bold;
+        cursor: pointer;
+      }
+    }
+    .left {
+      flex: 1;
+      padding: 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+      justify-content: center;
+      h1 {
+        color: #555;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        input {
+          border: none;
+          border-bottom: 1px solid lightgray;
+          padding: 20px 10px;
+        }
+        button {
+          width: 50%;
+          padding: 10px;
+          border: none;
+
+          cursor: pointer;
+          background-color: #ef8ee8;
+          color: white;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 968px) {
+  .right {
+    padding: 30px !important;
+    h1 {
+      font-size: 90px !important;
+    }
+  }
+  .card {
+    flex-direction: column-reverse !important;
+    width: 90% !important;
+  }
+}
+@media screen and (max-width: 768px) {
+  .right {
+    height: 100% !important;
+    padding: 30px !important;
+    text-align: center;
+    h1 {
+      margin: 0;
+      padding: 0;
+      font-size: 59px !important;
+      line-height: 50px !important;
+    }
+    p {
+      display: none !important;
+    }
+  }
+  .card {
+    width: 90% !important;
+  }
+  .left {
+    gap: 10px !important;
+  }
+}
