@@ -18,7 +18,10 @@
       display: flex;
       align-items: center;
       gap: 30px;
-
+      @include mobile {
+        padding: 10px 15px !important;
+        gap: 33px !important;
+      }
       span {
         font-weight: bold;
         font-size: 20px;

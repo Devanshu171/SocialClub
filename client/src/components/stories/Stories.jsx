@@ -19,16 +19,6 @@ export default function Stories() {
       name: "deb",
       img: "https://images.pexels.com/photos/2433945/pexels-photo-2433945.jpeg?cs=srgb&dl=pexels-edwin-ariel-valladares-2433945.jpg&fm=jpg&_gl=1*19lbpqy*_ga*MTc4NjMzNjc1My4xNjY4MDA1ODY5*_ga_8JE65Q40S6*MTY2ODAxMzY4OS4yLjEuMTY2ODAxMzY5NC4wLjAuMA..",
     },
-    {
-      id: 4,
-      name: "deb",
-      img: "https://images.pexels.com/photos/2433945/pexels-photo-2433945.jpeg?cs=srgb&dl=pexels-edwin-ariel-valladares-2433945.jpg&fm=jpg&_gl=1*19lbpqy*_ga*MTc4NjMzNjc1My4xNjY4MDA1ODY5*_ga_8JE65Q40S6*MTY2ODAxMzY4OS4yLjEuMTY2ODAxMzY5NC4wLjAuMA..",
-    },
-    {
-      id: 5,
-      name: "deb",
-      img: "https://images.pexels.com/photos/2433945/pexels-photo-2433945.jpeg?cs=srgb&dl=pexels-edwin-ariel-valladares-2433945.jpg&fm=jpg&_gl=1*19lbpqy*_ga*MTc4NjMzNjc1My4xNjY4MDA1ODY5*_ga_8JE65Q40S6*MTY2ODAxMzY4OS4yLjEuMTY2ODAxMzY5NC4wLjAuMA..",
-    },
   ];
   return (
     <div className="stories">
