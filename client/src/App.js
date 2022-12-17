@@ -45,7 +45,8 @@ function App() {
                 <Home />
               </ProtectedRoute>
             }
-          />
+          />{" "}
+          8
           <Route
             path="/profile/:id"
             element={
