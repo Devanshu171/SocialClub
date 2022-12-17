@@ -1,69 +1,70 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import "./comments.scss";
 import { AuthContext } from "../../context/authContext";
-export default function Comments() {
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { makeRequest } from "../../axios";
+import moment from "moment";
+
+const Comments = ({ postId }) => {
+  const [desc, setDesc] = useState("");
   const { currentUser } = useContext(AuthContext);
-  const comments = [
-    {
-      id: 1,
-      name: "Json Doe",
-      userId: 1,
-      profilePic:
-        "https://images.unsplash.com/photo-1668182618034-a67cba9a9fc1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80",
-      desc: "  Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
+
+  const { isLoading, error, data } = useQuery(["comments"], () =>
+    makeRequest.get("/comments?postId=" + postId).then((res) => {
+      return res.data;
+    })
+  );
+
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation(
+    (newComment) => {
+      return makeRequest.post("/comments", newComment);
     },
     {
-      id: 2,
-      name: "Json Doe",
-      userId: 1,
-      profilePic:
-        "https://images.unsplash.com/photo-1668182618034-a67cba9a9fc1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80",
-      desc: "  Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
-    },
-    {
-      id: 3,
-      name: "Json Doe",
-      userId: 1,
-      profilePic:
-        "https://images.unsplash.com/photo-1668182618034-a67cba9a9fc1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80",
-      desc: "  Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
-    },
-    {
-      id: 4,
-      name: "Json Doe",
-      userId: 1,
-      profilePic:
-        "https://images.unsplash.com/photo-1668182618034-a67cba9a9fc1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80",
-      desc: "  Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
-    },
-    {
-      id: 5,
-      name: "Json Doe",
-      userId: 1,
-      profilePic:
-        "https://images.unsplash.com/photo-1668182618034-a67cba9a9fc1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80",
-      desc: "  Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
-    },
-  ];
+      onSuccess: () => {
+        // Invalidate and refetch
+        queryClient.invalidateQueries(["comments"]);
+      },
+    }
+  );
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    mutation.mutate({ desc, postId });
+    setDesc("");
+  };
+
   return (
     <div className="comments">
       <div className="write">
-        <img src={currentUser.profilePic} alt="" />
-        <input type="text" placeholder="write a comment" />
-        <button>Post</button>
+        <img src={"/upload/" + currentUser.profilePic} alt="" />
+        <input
+          type="text"
+          placeholder="write a comment"
+          value={desc}
+          onChange={(e) => setDesc(e.target.value)}
+        />
+        <button onClick={handleClick}>Send</button>
       </div>
-      {comments.map((c) => {
-        return (
-          <div className="comment">
-            <img src={c.profilePic} alt="" />
-            <div className="info">
-              <span>{c.name}</span>
-              <p>{c.desc}</p>
+      {error
+        ? "Something went wrong"
+        : isLoading
+        ? "loading"
+        : data.map((comment) => (
+            <div className="comment">
+              <img src={"/upload/" + comment.profilePic} alt="" />
+              <div className="info">
+                <span>{comment.name}</span>
+                <p>{comment.desc}</p>
+              </div>
+              <span className="date">
+                {moment(comment.createdAt).fromNow()}
+              </span>
             </div>
-            <span className="date">1 hour ago</span>
-          </div>
-        );
-      })}
+          ))}
     </div>
   );
-}
+};
+
+export default Comments;
